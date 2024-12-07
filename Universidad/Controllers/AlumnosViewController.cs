@@ -4,14 +4,18 @@ using System.Text.Json;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Universidad.Models;
+using Microsoft.EntityFrameworkCore;
+using Universidad.Data;
 
 public class AlumnosViewController : Controller
 {
     private readonly HttpClient _httpClient;
+    private readonly UniversidadContext _context; // Contexto de la base de datos
 
-    public AlumnosViewController(HttpClient httpClient)
+    public AlumnosViewController(HttpClient httpClient, UniversidadContext context)
     {
         _httpClient = httpClient;
+        _context = context;
     }
 
     public async Task<IActionResult> Card()
@@ -61,21 +65,24 @@ public class AlumnosViewController : Controller
                 var response = await _httpClient.PostAsJsonAsync("http://localhost:5095/api/Alumnos", alumno);
                 if (response.IsSuccessStatusCode)
                 {
-                    return RedirectToAction("Card"); // Redirigir a la vista de alumnos después de la creación
+                    TempData["SuccessMessage"] = "Alumno creado exitosamente.";
+                    return RedirectToAction("Card"); 
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Error al crear el alumno");
+                    TempData["ErrorMessage"] = "Error al crear el alumno.";
                 }
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("", $"Error inesperado: {ex.Message}");
+                TempData["ErrorMessage"] = $"Error inesperado: {ex.Message}";
             }
         }
 
-        return View(alumno); // Mostrar el formulario nuevamente con los errores de validación
+        return View(alumno); 
     }
+
+
 
     [HttpGet]
     public async Task<IActionResult> Edit(int id)
@@ -117,23 +124,33 @@ public class AlumnosViewController : Controller
                 var response = await _httpClient.PutAsJsonAsync($"http://localhost:5095/api/Alumnos/{alumno.Id}", alumno);
                 if (response.IsSuccessStatusCode)
                 {
-                    return RedirectToAction("Card"); // Redirigir a la vista de alumnos después de la edición
+                    return RedirectToAction("Index"); // Redirigir a la lista de alumnos después de la actualización
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Error al actualizar el alumno");
+                    TempData["ErrorMessage"] = "Error al actualizar el alumno.";
                 }
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("", $"Error inesperado: {ex.Message}");
+                TempData["ErrorMessage"] = $"Error inesperado: {ex.Message}";
             }
         }
 
         return View(alumno); // Mostrar el formulario nuevamente con los errores de validación
     }
 
-    
+    public IActionResult ConfirmDelete(int id)
+    {
+        var alumno = _context.Alumnos.Find(id);
+        if (alumno == null)
+        {
+            return NotFound();
+        }
+        return View(alumno);
+    }
+
+
     public async Task<IActionResult> Delete(int id)
     {
         try
@@ -142,20 +159,21 @@ public class AlumnosViewController : Controller
 
             if (response.IsSuccessStatusCode)
             {
-                return RedirectToAction("Card");
+                TempData["SuccessMessage"] = "Alumno eliminado con éxito.";
             }
             else
             {
-                ModelState.AddModelError("", "Error al eliminar el alumno");
+                TempData["ErrorMessage"] = "Error al eliminar el alumno.";
             }
         }
         catch (Exception ex)
         {
-            ModelState.AddModelError("", $"Error inesperado: {ex.Message}");
+            TempData["ErrorMessage"] = $"Error inesperado: {ex.Message}";
         }
 
         return RedirectToAction("Card");
     }
+
     public IActionResult Hola()
     {
         return View("HolaMundo");
