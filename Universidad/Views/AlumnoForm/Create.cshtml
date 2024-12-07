@@ -1,0 +1,37 @@
+<!-- Views/AlumnosView/AlumnoForm.cshtml -->
+@model Universidad.Models.Alumno
+
+<form asp-action="Create" asp-controller="AlumnosView" method="post">
+    <div class="form-group">
+        <label for="Nombre">Nombre</label>
+        <input type="text" id="Nombre" name="Nombre" class="form-control" value="@Model.Nombre" />
+    </div>
+
+    <div class="form-group">
+        <label for="Matricula">Matrícula</label>
+        <input type="text" id="Matricula" name="Matricula" class="form-control" value="@Model.Matricula" />
+    </div>
+
+    <div class="form-group">
+        <label for="Correo">Correo</label>
+        <input type="email" id="Correo" name="Correo" class="form-control" value="@Model.Correo" />
+    </div>
+
+    <div class="form-group">
+        <label for="FechaNacimiento">Fecha de Nacimiento</label>
+       <input type="date" id="FechaNacimiento" name="FechaNacimiento" class="form-control" value="@Model.FechaNacimiento.ToString("yyyy-MM-dd")" />
+
+    </div>
+
+    <div class="form-group">
+        <label for="Carrera">Carrera</label>
+        <input type="text" id="Carrera" name="Carrera" class="form-control" value="@Model.Carrera" />
+    </div>
+
+    <div class="form-group">
+        <label for="Promedio">Promedio</label>
+        <input type="number" id="Promedio" name="Promedio" class="form-control" step="0.01" value="@Model.Promedio" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Enviar</button>
+</form>

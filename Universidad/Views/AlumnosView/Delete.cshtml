@@ -1,0 +1,30 @@
+@model Universidad.Models.Alumno
+
+<div class="container mt-4">
+    <h2>Eliminar Alumno</h2>
+    <p>¿Estás seguro de que deseas eliminar a @Model.Nombre?</p>
+    <form id="deleteForm" method="post" action="/AlumnosView/Delete">
+        <input type="hidden" name="id" value="@Model.Id" />
+        <button type="button" class="btn btn-danger" onclick="confirmDelete(@Model.Id)">Eliminar</button>
+        <a href="@Url.Action("Index", "AlumnosView")" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+
+<script>
+    function confirmDelete(id) {
+        if (confirm('¿Estás seguro de que deseas eliminar este alumno?')) {
+            fetch(`/AlumnosView/Delete/${id}`, {
+                method: 'DELETE'
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert('Alumno eliminado con éxito');
+                    window.location.href = '/AlumnosView/Card';
+                } else {
+                    alert('Error al eliminar el alumno');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    }
+</script>
