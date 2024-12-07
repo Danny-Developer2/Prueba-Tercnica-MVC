@@ -78,3 +78,10 @@
 /Users/juandanielluevanoruiz/Desktop/prueba-tecnica/Universidad/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerGen.dll
 /Users/juandanielluevanoruiz/Desktop/prueba-tecnica/Universidad/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerUI.dll
 /Users/juandanielluevanoruiz/Desktop/prueba-tecnica/Universidad/obj/Debug/net8.0/Universidad.MvcApplicationPartsAssemblyInfo.cs
+/Users/juandanielluevanoruiz/Desktop/prueba-tecnica/Universidad/obj/Debug/net8.0/Universidad.sourcelink.json
+/Users/juandanielluevanoruiz/Desktop/prueba-tecnica/Universidad/bin/Debug/net8.0/System.Data.SqlClient.dll
+/Users/juandanielluevanoruiz/Desktop/prueba-tecnica/Universidad/bin/Debug/net8.0/runtimes/win-arm64/native/sni.dll
+/Users/juandanielluevanoruiz/Desktop/prueba-tecnica/Universidad/bin/Debug/net8.0/runtimes/win-x64/native/sni.dll
+/Users/juandanielluevanoruiz/Desktop/prueba-tecnica/Universidad/bin/Debug/net8.0/runtimes/win-x86/native/sni.dll
+/Users/juandanielluevanoruiz/Desktop/prueba-tecnica/Universidad/bin/Debug/net8.0/runtimes/unix/lib/net8.0/System.Data.SqlClient.dll
+/Users/juandanielluevanoruiz/Desktop/prueba-tecnica/Universidad/bin/Debug/net8.0/runtimes/win/lib/net8.0/System.Data.SqlClient.dll

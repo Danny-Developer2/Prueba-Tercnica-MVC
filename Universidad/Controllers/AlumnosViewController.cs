@@ -133,7 +133,7 @@ public class AlumnosViewController : Controller
         return View(alumno); // Mostrar el formulario nuevamente con los errores de validación
     }
 
-    [HttpPost]
+    
     public async Task<IActionResult> Delete(int id)
     {
         try
@@ -155,5 +155,9 @@ public class AlumnosViewController : Controller
         }
 
         return RedirectToAction("Card");
+    }
+    public IActionResult Hola()
+    {
+        return View("HolaMundo");
     }
 }
