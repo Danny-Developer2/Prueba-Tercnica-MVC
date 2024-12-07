@@ -1,6 +1,4 @@
 @model Universidad.Models.Alumno
-@using Microsoft.Data.SqlClient;
-
 @{
     var connectionString = "Server=localhost,1433;Database=universidad;User Id=sa;Password=Universidad1#;TrustServerCertificate=True;";
     string mensaje = string.Empty;
@@ -9,37 +7,6 @@
 <div class="container mt-4">
     <h2>Eliminar Alumno</h2>
 
-    @if (Context.Request.Method == "POST")
-    {
-        try
-        {
-            using (var connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-
-                string query = "DELETE FROM Alumnos WHERE Id = @Id";
-                using (var command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@Id", Model.Id);
-                    int rowsAffected = command.ExecuteNonQuery();
-
-                    if (rowsAffected > 0)
-                    {
-                        mensaje = "Alumno eliminado con éxito.";
-                    }
-                    else
-                    {
-                        mensaje = "No se encontró el alumno a eliminar.";
-                    }
-                }
-            }
-        }
-        catch (Exception ex)
-        {
-            mensaje = "Ocurrió un error al eliminar el alumno: " + ex.Message;
-        }
-    }
-
     @if (!string.IsNullOrEmpty(mensaje))
     {
         <div class="alert alert-info">@mensaje</div>
@@ -47,7 +14,8 @@
     else
     {
         <p>¿Estás seguro de que deseas eliminar a @Model.Nombre?</p>
-        <form method="post">
+        <form asp-action="ConfirmDelete" asp-controller="AlumnosView" method="get">
+            <input type="hidden" name="id" value="@Model.Id" />
             <button type="submit" class="btn btn-danger">Eliminar</button>
             <a href="@Url.Action("Index", "Alumnos")" class="btn btn-secondary">Cancelar</a>
         </form>
